@@ -5,6 +5,9 @@ import { createVisualComponent, useState } from "uu5g04-hooks";
 import Plus4U5 from "uu_plus4u5g01";
 import "uu_plus4u5g01-app";
 
+import SubjectManInstanceProvider from "../bricks/subjectMan-instance-provider"
+import SubjectManInstanceContext from "../bricks/subjectMan-instance-context";
+
 import Config from "./config/config";
 import Left from "./left";
 import Bottom from "./bottom";
@@ -15,11 +18,12 @@ import StudyProgrammeDetail from "../routes/StudyProgramme/studyProgramme-datail
 import SubjectsRoute from "../routes/Subjects/subjects-route";
 import SubjectsDetailRoute from "../routes/Subjects/subjects-datail-route";
 
+
 //@@viewOff:imports
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "SpaAuthenticated",
+  displayName: Config.TAG + "SpaReady",
   //@@viewOff:statics
 };
 
@@ -32,7 +36,7 @@ const ROUTES = {
   "": DEFAULT_USE_CASE,
   home: { component: <Home /> },
   studyProgrammes: { component: <StudyProgrammeRoute /> },
-  studyProgrammeDetail: {component: <StudyProgrammeDetail />, params: {id: ""}},
+  studyProgrammeDetail: { component: <StudyProgrammeDetail />, params: { id: "" } },
   subjectsList: { component: <SubjectsRoute /> },
   subjectDetail: { component: <SubjectsDetailRoute /> },
   about: { component: <About /> },
@@ -40,7 +44,7 @@ const ROUTES = {
   controlPanel: { component: <ControlPanel /> },
 };
 
-export const SpaAuthenticated = createVisualComponent({
+export const SpaReady = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
@@ -62,36 +66,39 @@ export const SpaAuthenticated = createVisualComponent({
 
     //@@viewOn:render
     return (
-      <Plus4U5.App.MenuProvider activeItemId={initialActiveItemId}>
-        <Plus4U5.App.Page
-          {...props}
-          top={<Plus4U5.App.TopBt />}
-          topFixed="smart"
-          bottom={<Bottom />}
-          type={3}
-          displayedLanguages={["cs", "en"]}
-          left={<Left />}
-          leftWidth="!xs-300px !s-300px !m-288px !l-288px !xl-288px"
-          leftFixed
-          leftRelative="m l xl"
-          leftResizable="m l xl"
-          leftResizableMinWidth={220}
-          leftResizableMaxWidth={500}
-          isLeftOpen="m l xl"
-          showLeftToggleButton
-          fullPage
-        >
-          <Plus4U5.App.MenuConsumer>
-            {({ setActiveItemId }) => {
-              let handleRouteChanged = ({ useCase, parameters }) => setActiveItemId(useCase || DEFAULT_USE_CASE);
-              return <UU5.Common.Router routes={ROUTES} controlled={false} onRouteChanged={handleRouteChanged} />;
-            }}
-          </Plus4U5.App.MenuConsumer>
-        </Plus4U5.App.Page>
-      </Plus4U5.App.MenuProvider>
+
+          <Plus4U5.App.MenuProvider activeItemId={initialActiveItemId}>
+            <Plus4U5.App.Page
+              {...props}
+              top={<Plus4U5.App.TopBt />}
+              topFixed="smart"
+              bottom={<Bottom />}
+              type={3}
+              displayedLanguages={["cs", "en"]}
+              left={<Left />}
+              leftWidth="!xs-300px !s-300px !m-288px !l-288px !xl-288px"
+              leftFixed
+              leftRelative="m l xl"
+              leftResizable="m l xl"
+              leftResizableMinWidth={220}
+              leftResizableMaxWidth={500}
+              isLeftOpen="m l xl"
+              showLeftToggleButton
+              fullPage
+              
+            >
+              <Plus4U5.App.MenuConsumer>
+                {({ setActiveItemId }) => {
+                  let handleRouteChanged = ({ useCase, parameters }) => setActiveItemId(useCase || DEFAULT_USE_CASE);
+                  return <UU5.Common.Router routes={ROUTES} controlled={false} onRouteChanged={handleRouteChanged} />;
+                }}
+              </Plus4U5.App.MenuConsumer>
+            </Plus4U5.App.Page>
+          </Plus4U5.App.MenuProvider>
+
     );
     //@@viewOff:render
   },
 });
 
-export default SpaAuthenticated;
+export default SpaReady;
