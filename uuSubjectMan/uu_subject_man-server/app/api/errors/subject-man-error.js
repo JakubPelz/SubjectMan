@@ -38,6 +38,12 @@ const Init = {
   },
 };
 
+const Load = {
+  UC_CODE: `${SubjectManUseCaseError.ERROR_PREFIX}load/`,
+  
+};
+
 module.exports = {
+  Load,
   Init,
 };

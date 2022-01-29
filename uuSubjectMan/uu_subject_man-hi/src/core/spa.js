@@ -1,10 +1,12 @@
 //@@viewOn:imports
+import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
 import Plus4U5 from "uu_plus4u5g01";
 import "uu_plus4u5g01-app";
 
 import Config from "./config/config.js";
 import SpaAuthenticated from "./spa-authenticated.js";
+import SpaUnauthorized from "./spa-unauthorized.js";
 //@@viewOff:imports
 
 const STATICS = {
@@ -31,7 +33,7 @@ export const Spa = createVisualComponent({
 
     //@@viewOn:render
     return (
-      <Plus4U5.App.Spa {...props} appName="uuSubject">
+      <Plus4U5.App.Spa {...props} appName="uuSubject" notAuthenticatedContent={<SpaAuthenticated />}>
         <SpaAuthenticated />
       </Plus4U5.App.Spa>
     );

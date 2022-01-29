@@ -21,6 +21,23 @@ class SubjectManAbl {
     this.validator = Validator.load();
   }
 
+  async load(uri, dtoIn, authorizationResult) {
+    const awid = uri.getAwid();
+    let uuAppErrorMap = {};
+
+    let authorizedProfiles = await authorizationResult.getAuthorizedProfiles();
+
+    console.debug(authorizationResult);
+
+    const workspace = await UuAppWorkspace.get(awid);
+
+    return {
+      ...workspace,
+      authorizedProfiles: authorizedProfiles,
+      uuAppErrorMap: uuAppErrorMap,
+    };
+  }
+
   async init(uri, dtoIn, session) {
     const awid = uri.getAwid();
     // HDS 1

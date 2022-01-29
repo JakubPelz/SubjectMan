@@ -45,6 +45,11 @@ const Lsi = {
     },
   },
 
+  welcome:{
+    cs: "Vítejte na stránkách aplikace uuSubjectMan",
+    en: "Welcome to uuSubjectManApplication"
+  },
+
   auth: {
     welcome: {
       cs: "Vítejte",
@@ -92,6 +97,10 @@ const Lsi = {
   },
 
   unauth: {
+    welcome:{
+      cs: "Vítej návštěvníku",
+      en: "Welcome visitor"
+    },
     continueToMain: {
       cs: "Pokračovat na web produktu",
       en: "Continue to the product web",

@@ -38,6 +38,11 @@ let Calls = {
     return await Calls.getWorkspace();
   },
 
+  loadStudyProgrammeInstance(dtoIn) {
+    let commandUri = Calls.getCommandUri("sys/uuAppWorkspace/load");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+
   async listStudyProgrammes(dtoIn){
     let commandUri = Calls.getCommandUri("studyProgramme/list");
     const calledData = await Calls.call("get", commandUri, dtoIn);

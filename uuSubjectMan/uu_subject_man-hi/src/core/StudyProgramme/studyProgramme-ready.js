@@ -2,9 +2,10 @@
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Uu5Tiles from "uu5tilesg02";
-import { createVisualComponent, useRef } from "uu5g04-hooks";
+import { createVisualComponent, useRef, useSession } from "uu5g04-hooks";
 import Config from "../config/config";
 import StudyProgrammeTile from "../../bricks/StudyProgramme/studyProgramme-tile";
+import GlobalConfig from "../../config/config";
 //@@viewOff:imports
 
 const STATICS = {
@@ -60,7 +61,9 @@ export const StudyProgrammeReady = createVisualComponent({
         //@@viewOff:interface
 
         //@@viewOn:hooks
-        const addFormRef = useRef();
+        const addFormRef = useRef();   
+        console.debug(useSession());     
+
         //@@viewOff:hooks
 
         //@@viewOn:render
@@ -78,7 +81,13 @@ export const StudyProgrammeReady = createVisualComponent({
         return currentNestingLevel ? (
             <div {...attrs}>
                 <Uu5Tiles.ControllerProvider data={props.data ? props.data : []}>
-                    <Uu5Tiles.ActionBar title={""} actions={STUDY_PROGRAMME_ACTIONS}/>
+                <UU5.Common.Identity>
+                    {({ identity, login, logout, ...opt }) => {
+                    console.debug(identity);
+                    console.debug(opt);
+                    }}
+                </UU5.Common.Identity>
+                    <Uu5Tiles.ActionBar title={""} actions={UU5.Common.Tools.hasProfile(GlobalConfig.Profiles, "StudyDepartment") ? STUDY_PROGRAMME_ACTIONS : null}/>
                     <Uu5Tiles.Grid
                         tileMinWidth={200}
                         tileMaxWidth={500}

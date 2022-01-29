@@ -30,7 +30,7 @@ export default {
             cs: "Stupeň vzdělání: ",
             en: "Study degree: "
         },
-        degree:{
+        created:{
             cs: "Vytvořeno: ",
             en: "Created: "
         },

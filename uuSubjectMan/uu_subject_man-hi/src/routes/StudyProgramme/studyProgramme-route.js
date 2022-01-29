@@ -160,7 +160,7 @@ export const StudyProgrammeRoute = createVisualComponent({
 
         return currentNestingLevel ? (
             <div {...attrs}>
-                <UU5.Bricks.Section header={<UU5.Bricks.Lsi lsi={Lsi.header} />}>
+                <UU5.Bricks.Section style={{"padding": "10px"}}  header={<UU5.Bricks.Lsi lsi={Lsi.header} />}>
                     {renderChild()}
                 </UU5.Bricks.Section>
 

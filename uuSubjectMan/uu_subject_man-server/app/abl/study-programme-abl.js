@@ -25,6 +25,7 @@ class StudyProgrammeAbl {
     let uuAppErrorMap = ValidationHelper.processValidationResult(dtoIn, validationResult,
       WARNINGS.createUnsupportedKeys.code, Errors.Create.InvalidDtoIn);
 
+
     let dtoOut
     // HDS 3
     dtoIn.awid = awid
@@ -45,9 +46,11 @@ class StudyProgrammeAbl {
     return dtoOut
   }
 
-  async list(awid, dtoIn) {
+  async list(awid, dtoIn, authorizationResult) {
     let uuAppErrorMap = {};
     let dtoOut;
+
+    const authorizedProfiles = await authorizationResult.getAuthorizedProfiles();
 
     try {
       dtoOut = await this.dao.list(awid);
@@ -59,6 +62,7 @@ class StudyProgrammeAbl {
       return err
     }
 
+    dtoOut.uuProfiles = authorizedProfiles;
     dtoOut.uuAppErrorMap = uuAppErrorMap;
     return dtoOut
   }

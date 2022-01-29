@@ -460,6 +460,11 @@
         "realization": "api/controllers/TopicController.digitalContentRemove",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "sys/uuAppWorkspace/load": {
+        "realization": "api/controllers/SubjectManController.load",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   },

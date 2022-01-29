@@ -87,11 +87,13 @@ const SubjectsCreateModal = createVisualComponentWithRef({
           allowCustomTags
           required
         />
-        <UU5.Forms.TagSelect
-          label={<UU5.Bricks.Lsi lsi={Lsi.form.guarantor} />}
+
+        <UU5.Forms.Text
+          label={<UU5.Bricks.Lsi lsi={Lsi.form.guarantor}  />}
           name="guarantor"
           value={props?.subject ? props?.subject.guarantor : undefined}
-          allowCustomTags
+          inputAttrs={{ maxLength: 255 }}
+          controlled={false}
           required
         />
         <UU5.Forms.Controls controlled={false} />

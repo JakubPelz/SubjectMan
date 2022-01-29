@@ -54,13 +54,7 @@ export const SpaUnauthorized = createVisualComponent({
     const attrs = UU5.Common.VisualComponent.getAttrs(props, CLASS_NAMES.main());
     return (
       <div {...attrs}>
-        <UU5.Bricks.Icon className={CLASS_NAMES.errorIcon()} icon="mdi-block-helper" />
-        <UU5.Bricks.Text className={CLASS_NAMES.textError()}>
-          {UU5.Utils.Content.getChildren(children, props, STATICS) || <UU5.Bricks.Lsi lsi={Lsi.unauth.notAuthorized} />}
-        </UU5.Bricks.Text>
-        <UU5.Bricks.Button colorSchema="primary">
-          <UU5.Bricks.Lsi lsi={Lsi.unauth.continueToMain} />
-        </UU5.Bricks.Button>
+          <p>Hi</p>
       </div>
     );
     //@@viewOff:render

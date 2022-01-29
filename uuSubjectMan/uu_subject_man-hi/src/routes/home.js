@@ -4,10 +4,12 @@ import "uu5g04-bricks";
 import { createVisualComponent } from "uu5g04-hooks";
 import Plus4U5 from "uu_plus4u5g01";
 import "uu_plus4u5g01-bricks";
+import { Session } from 'uu_oidcg01';
 
 import Config from "./config/config.js";
 import Lsi from "../config/lsi.js";
 import WelcomeRow from "../bricks/welcome-row.js";
+import SubjectManInstanceContext from "../bricks/subjectMan-instance-context.js";
 //@@viewOff:imports
 
 const STATICS = {
@@ -35,6 +37,9 @@ const CLASS_NAMES = {
   `,
 };
 
+
+
+
 export const Home = createVisualComponent({
   ...STATICS,
 
@@ -58,16 +63,42 @@ export const Home = createVisualComponent({
         <Plus4U5.App.ArtifactSetter territoryBaseUri="" artifactId="" />
 
         <UU5.Bricks.Row className={CLASS_NAMES.welcomeRow()}>
-          <UU5.Bricks.Column colWidth="x-12 s-3">
-            <Plus4U5.Bricks.UserPhoto width="100px" />
-          </UU5.Bricks.Column>
-          <UU5.Bricks.Column colWidth="x-12 s-9">
-            <UU5.Bricks.Header level="2" content={<UU5.Bricks.Lsi lsi={Lsi.auth.welcome} />} />
-            <UU5.Common.Identity>
-              {({ identity }) => <UU5.Bricks.Header level="2" content={identity.name} />}
-            </UU5.Common.Identity>
+          <UU5.Bricks.Column>
+            <UU5.Bricks.Header level="3" content={<UU5.Bricks.Lsi lsi={Lsi.welcome} />} />
           </UU5.Bricks.Column>
         </UU5.Bricks.Row>
+
+        <UU5.Bricks.Row className={CLASS_NAMES.welcomeRow()}>
+          <UU5.Common.Identity>
+
+
+            {({ identity }) => {
+              if (identity)
+                return (
+                  <>
+                    <UU5.Bricks.Column colWidth="x-12 s-3">
+                      <Plus4U5.Bricks.UserPhoto width="100px" />
+                    </UU5.Bricks.Column>
+                    <UU5.Bricks.Column colWidth="x-12 s-9">
+                      <UU5.Bricks.Header level="2" content={<UU5.Bricks.Lsi lsi={Lsi.auth.welcome} />} />
+                      <UU5.Bricks.Header level="2" content={identity?.name} />
+                    </UU5.Bricks.Column>
+                  </>
+                );
+              else
+                return (
+                  <>
+                    <UU5.Bricks.Column>
+                      <UU5.Bricks.Header level="2" content={<UU5.Bricks.Lsi lsi={Lsi.unauth.welcome} />} />
+                      <UU5.Bricks.Header level="2" content={identity?.name} />
+                    </UU5.Bricks.Column>
+                  </>);
+            }}
+
+
+          </UU5.Common.Identity>
+        </UU5.Bricks.Row>
+
         <WelcomeRow textPadding="14px" icon="mdi-human-greeting">
           <UU5.Bricks.Lsi lsi={Lsi.auth.intro} />
         </WelcomeRow>
@@ -77,7 +108,7 @@ export const Home = createVisualComponent({
         <WelcomeRow textPadding="8px" icon="mdi-server">
           <UU5.Bricks.Lsi lsi={Lsi.auth.serverSide} />
         </WelcomeRow>
-      </div>
+      </div >
     );
     //@@viewOff:render
   },

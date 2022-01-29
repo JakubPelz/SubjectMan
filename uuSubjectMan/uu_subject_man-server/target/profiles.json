@@ -222,7 +222,7 @@
     "permissionMap": []
   },
   "*": {
-    "profileList": ["Authorities", "Executives", "AwidLicenseOwner", "Public", "Auditors"],
+    "profileList": ["Authorities", "Executives", "AwidLicenseOwner", "Public", "Teachers", "StudyDepartment", "Student", "Auditors"],
     "useCaseMap": {
       "sys/uuAppWorkspace/init": {
         "sysStateList": ["created"],
@@ -274,7 +274,7 @@
       },
       "sys/uuAppWorkspace/initUve": {
         "sysStateList": ["created"],
-        "profileList": ["Public", "AwidLicenseOwner"]
+        "profileList": ["Authorities", "AwidLicenseOwner"]
       },
       "sys/uuAppDataStore/stats/get": {
         "sysStateList": ["active", "readOnly"],
@@ -398,69 +398,73 @@
       },
       "subject/list": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities"]
+        "profileList": ["Authorities", "StudyDepartment", "Teachers"]
       },
       "subject/get": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities"]
+        "profileList": ["Authorities", "StudyDepartment", "Teachers", "Student"]
       },
       "subject/create": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities"]
+        "profileList": ["Authorities", "StudyDepartment", "Teachers"]
       },
       "subject/update": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities"]
-      },
-      "topic/create": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities"]
-      },
-      "topic/list": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities"]
-      },
-      "topic/update": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities"]
-      },
-      "topic/remove": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities"]
+        "profileList": ["Authorities", "StudyDepartment", "Teachers"]
       },
       "studyProgramme/create": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities"]
+        "profileList": ["Authorities", "StudyDepartment"]
       },
       "studyProgramme/update": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities"]
+        "profileList": ["Authorities", "StudyDepartment"]
       },
       "studyProgramme/list": {
         "sysStateList": ["active"],
-        "profileList": ["Public", "AwidLicenseOwner", "1916-8357-1", "Authorities", "AsidAuthorities", "AsidExecutives", "AsidLicenseOwner", "Executives"]
+        "profileList": ["Public"]
       },
       "studyProgramme/get": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities"]
+        "profileList": ["Public"]
       },
       "subject/assignSubject": {
         "sysStateList": ["active"],
-        "profileList": ["Public", "Authorities"]
+        "profileList": ["Authorities", "StudyDepartment", "Teachers"]
       },
       "subject/listByStudyProgramme": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Authorities", "Public"]
       },
       "subject/removeSubject": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Authorities", "StudyDepartment", "Teachers"]
+      },
+      "topic/create": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities", "StudyDepartment", "Teachers"]
+      },
+      "topic/list": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities", "StudyDepartment", "Teachers", "Student"]
+      },
+      "topic/update": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities", "StudyDepartment", "Teachers"]
+      },
+      "topic/remove": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities", "StudyDepartment", "Teachers"]
       },
       "topic/digitalContentAdd": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Authorities", "StudyDepartment", "Teachers"]
       },
       "topic/digitalContentRemove": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities", "StudyDepartment", "Teachers"]
+      },
+      "sys/uuAppWorkspace/load": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
       }

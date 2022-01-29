@@ -8,7 +8,7 @@ class StudyProgrammeController {
   }
 
   list(ucEnv) {
-    return StudyProgrammeAbl.list(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+    return StudyProgrammeAbl.list(ucEnv.getUri().getAwid(), ucEnv.getDtoIn(), ucEnv.getAuthorizationResult());
   }
 
   update(ucEnv) {
