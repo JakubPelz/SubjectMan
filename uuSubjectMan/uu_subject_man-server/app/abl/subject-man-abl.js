@@ -21,13 +21,11 @@ class SubjectManAbl {
     this.validator = Validator.load();
   }
 
-  async load(uri, dtoIn, authorizationResult) {
+  async load(uri, dtoIn, session, authorizationResult) {
     const awid = uri.getAwid();
     let uuAppErrorMap = {};
 
     let authorizedProfiles = await authorizationResult.getAuthorizedProfiles();
-
-    console.debug(authorizationResult);
 
     const workspace = await UuAppWorkspace.get(awid);
 

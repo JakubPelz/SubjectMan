@@ -2,8 +2,12 @@
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Uu5Tiles from "uu5tilesg02";
-import { createVisualComponent, useRef } from "uu5g04-hooks";
+import { createVisualComponent, useRef, useContext } from "uu5g04-hooks";
 import Config from "../config/config";
+
+import Profiles from "../../config/profiles";
+import SubjectManInstanceContext from "../../bricks/subjectMan-instance-context"
+
 //@@viewOff:imports
 
 const STATICS = {
@@ -56,7 +60,7 @@ export const SubjectInStudyProgrammeListReady = createVisualComponent({
 
         const SUBJECT_COLUMNS = [
             {
-                cell: cellProps => <UU5.Bricks.Lsi lsi={cellProps.data.data.name} />,
+                cell: cellProps => <UU5.Bricks.Link onClick={() => { handleOpenSubject(cellProps.data.data); }}><UU5.Bricks.Lsi lsi={cellProps.data.data.name} /></UU5.Bricks.Link>,
                 header: <UU5.Bricks.Lsi lsi={{ en: "Species", cs: "Název" }} />
             },
             {
@@ -68,10 +72,20 @@ export const SubjectInStudyProgrammeListReady = createVisualComponent({
                 header: <UU5.Bricks.Lsi lsi={{ en: "semester", cs: "semester" }} />
             },
             {
-                cell: cellProps => <UU5.Bricks.Button content="Odstaň" onClick={()=>{props.handleSubjectRemove(cellProps.data.data.id);}}></UU5.Bricks.Button>,
+                cell: cellProps =>  hasPermissionToAddAndDelete() == true ? <UU5.Bricks.Button content="Odstaň" onClick={() => { props.handleSubjectRemove(cellProps.data.data.id); }}></UU5.Bricks.Button> : null,
                 cellPadding: "4px 8px",
             }
         ];
+
+
+        const handleOpenSubject = (data) => {
+            UU5.Environment.setRoute("subjectDetail", { id: data.id });
+        }
+
+        const hasPermissionToAddAndDelete = () => {
+            return UU5.Common.Tools.hasSomeProfiles(authorizedProfiles, [Profiles.TEACHERS, Profiles.STUDYDEP]);
+        }
+
         //@@viewOff:private
 
         //@@viewOn:interface
@@ -79,6 +93,7 @@ export const SubjectInStudyProgrammeListReady = createVisualComponent({
 
         //@@viewOn:hooks
         const addFormRef = useRef();
+        const authorizedProfiles = useContext(SubjectManInstanceContext).data.authorizedProfiles;
         //@@viewOff:hooks
 
         //@@viewOn:render
@@ -96,7 +111,7 @@ export const SubjectInStudyProgrammeListReady = createVisualComponent({
         return currentNestingLevel ? (
             <div {...attrs}>
                 <Uu5Tiles.ControllerProvider data={props.data ? props.data : []}>
-                    <Uu5Tiles.ActionBar title={""} actions={SUBJECTS_ACTIONS} />
+                    <Uu5Tiles.ActionBar title={""} actions={hasPermissionToAddAndDelete() === true ? SUBJECTS_ACTIONS : []} />
                     <Uu5Tiles.List
                         rowPadding="4px 16px"
                         tileRowSpacing={8}

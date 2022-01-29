@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
-import { createVisualComponent, useDataList, useRef, useUnmountedRef, useCallback } from "uu5g04-hooks";
+import { createVisualComponent, useDataList, useRef, useUnmountedRef, useCallback, useContext } from "uu5g04-hooks";
 import Calls from "../../calls";
 import SubjectsListReady from "../../core/Subjects/subjectsList-ready";
 import Config from "../config/config";
@@ -9,6 +9,9 @@ import Config from "../config/config";
 import SubjectsCreateModal from "../../bricks/Subjects/subjects-create-modal"
 
 import Lsi from "./lsi/subjects-route-lsi";
+
+import Profiles from "../../config/profiles";
+import SubjectManInstanceContext from "../../bricks/subjectMan-instance-context"
 //@@viewOff:imports
 
 const STATICS = {
@@ -44,10 +47,10 @@ export const SubjectsRoute = createVisualComponent({
                 case "readyNoData":
                     child = (
                         <>
-                        <SubjectsListReady data={data} 
-                        handleOpen={handleOpenSubject}
-                        handleCreate={handleSubjectCreate}
-                        />
+                            <SubjectsListReady data={data}
+                                handleOpen={handleOpenSubject}
+                                handleCreate={handleSubjectCreate}
+                            />
                         </>
                     );
                     break;
@@ -58,10 +61,18 @@ export const SubjectsRoute = createVisualComponent({
             };
             return child;
         };
+
+        const hasPermissionToVisit = () => {
+            return UU5.Common.Tools.hasSomeProfiles(authorizedProfiles, [Profiles.TEACHERS, Profiles.STUDYDEP]);
+        }
         //@@viewOff:private
 
         //@@viewOn:interface
         //@@viewOff:interface
+
+        //@@viewOn:hooks
+        const authorizedProfiles = useContext(SubjectManInstanceContext).data.authorizedProfiles;
+        //@@viewOff:hooks
 
         //@@viewOn:render
         const className = Config.Css.css``;
@@ -75,6 +86,7 @@ export const SubjectsRoute = createVisualComponent({
                 createItem: Calls.createSubject
             },
             itemHandlerMap: {
+                update: Calls.updateSubject
             },
             initialDtoIn: { pageInfo: {} }
         });
@@ -86,10 +98,10 @@ export const SubjectsRoute = createVisualComponent({
         const handleOpenSubject = (data) => {
             UU5.Environment.setRoute("subjectDetail", { id: data.id });
 
-         //   UU5.Environment.setRoute({
-         //       component: <StudyProgrameDetail />,
-         //       url: { useCase: "studyProgrammeDetail", params: {"id": data.id} }
-         //   });
+            //   UU5.Environment.setRoute({
+            //       component: <StudyProgrameDetail />,
+            //       url: { useCase: "studyProgrammeDetail", params: {"id": data.id} }
+            //   });
         }
 
         const showModal = useCallback((subject, onSave) => {
@@ -132,6 +144,7 @@ export const SubjectsRoute = createVisualComponent({
             });
         }, [showModal, handlerMap.createItem, handlerMap.load, unmountedRef]);
 
+
         const component = (
             <div {...attrs}>
                 {UU5.Utils.Content.getChildren(props.children, props, STATICS)}
@@ -140,12 +153,20 @@ export const SubjectsRoute = createVisualComponent({
 
         return currentNestingLevel ? (
             <div {...attrs}>
-                <UU5.Bricks.Section style={{"padding": "10px"}} header={<UU5.Bricks.Lsi lsi={Lsi.header} />}>
-                    {renderChild()}
-                </UU5.Bricks.Section>
+                {hasPermissionToVisit() === true ?
+                    <>
+                        <UU5.Bricks.Section style={{ "padding": "10px" }} header={<UU5.Bricks.Lsi lsi={Lsi.header} />}>
+                            {renderChild()}
+                        </UU5.Bricks.Section>
 
-                <UU5.Bricks.AlertBus ref_={alertBusRef} />
-                <UU5.Bricks.Modal controlled={false} ref_={modalRef} mountContent="onEachOpen" overflow />
+                        <UU5.Bricks.AlertBus ref_={alertBusRef} />
+                        <UU5.Bricks.Modal controlled={false} ref_={modalRef} mountContent="onEachOpen" overflow />
+                    </>
+                    : <>
+                        <UU5.Common.Error content="Nemáte oprávnění toto zobrazit" />
+                        <UU5.Bricks.Image src="https://c.tenor.com/bIJa2uRURiQAAAAd/lord-of-the-rings-you-shall-not-pass.gif" />
+                    </>
+                }
             </div>
         ) : (
             <UU5.Bricks.LinkModal children="Visual Component" hidden={props.hidden} component={component} />

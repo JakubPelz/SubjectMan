@@ -83,7 +83,11 @@
       },
       "topic/digitalContentRemove": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","StudyCoordinators", "Teachers"]
+        "profileList": ["Authorities", "StudyCoordinators","Teachers"]
+      },
+      "sys/uuAppWorkspace/load": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities", "StudyCoordinators","Teachers"]
       }
     }
   }

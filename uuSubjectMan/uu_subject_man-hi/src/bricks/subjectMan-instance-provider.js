@@ -22,8 +22,12 @@ const SubjectManInstanceProvider = createComponent({
     //@@viewOn:private
     async function handleLoad() {
       const dtoOut = await Calls.loadStudyProgrammeInstance();
-      console.debug(dtoOut);
-      return { ...dtoOut.data };
+      console.debug(dtoOut.authorizedProfiles);
+
+      if(dtoOut.authorizedProfiles)
+        return { authorizedProfiles: dtoOut.authorizedProfiles };
+      else
+        return { authorizedProfiles: [] };
     }
     //@@viewOff:private
 

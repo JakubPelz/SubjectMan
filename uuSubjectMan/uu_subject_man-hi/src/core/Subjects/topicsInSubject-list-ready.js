@@ -2,10 +2,13 @@
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Uu5Tiles from "uu5tilesg02";
-import { createVisualComponent, useRef } from "uu5g04-hooks";
+import { createVisualComponent, useRef, useContext } from "uu5g04-hooks";
 import Config from "../config/config";
 
 import TopicsTile from "../../bricks/Topics/topic-tile"
+
+import Profiles from "../../config/profiles";
+import SubjectManInstanceContext from "../../bricks/subjectMan-instance-context"
 
 //@@viewOff:imports
 
@@ -63,6 +66,10 @@ export const TopicsInSubjectListReady = createVisualComponent({
                 header: <UU5.Bricks.Lsi lsi={{ en: "Species", cs: "Název" }} />
             }
         ];
+
+        const hasPermissionToAdd = () => {
+            return UU5.Common.Tools.hasSomeProfiles(authorizedProfiles, [Profiles.TEACHERS, Profiles.STUDYDEP]);
+        }
         //@@viewOff:private
 
         //@@viewOn:interface
@@ -70,6 +77,7 @@ export const TopicsInSubjectListReady = createVisualComponent({
 
         //@@viewOn:hooks
         const addFormRef = useRef();
+        const authorizedProfiles = useContext(SubjectManInstanceContext).data.authorizedProfiles;
         //@@viewOff:hooks
 
         //@@viewOn:render
@@ -87,7 +95,7 @@ export const TopicsInSubjectListReady = createVisualComponent({
         return currentNestingLevel ? (
             <div {...attrs}>
                 <Uu5Tiles.ControllerProvider data={props.data ? props.data : []}>
-                    <Uu5Tiles.ActionBar title={""} actions={TOPICS_ACTIONS} />
+                    <Uu5Tiles.ActionBar title={""} actions={hasPermissionToAdd() === true ? TOPICS_ACTIONS : []} />
                     <Uu5Tiles.Grid
                         tileMinWidth={400}
                         tileMaxWidth={1000}

@@ -2,9 +2,13 @@
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Uu5Tiles from "uu5tilesg02";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, useContext } from "uu5g04-hooks";
 import Config from "../../core/config/config";
 import Lsi from "./lsi/studyProgramme-tile-lsi";
+
+import Profiles from "../../config/profiles";
+import SubjectManInstanceContext from "../../bricks/subjectMan-instance-context"
+
 
 //@@viewOff:imports
 
@@ -29,8 +33,8 @@ export const StudyProgrammeTile = createVisualComponent({
     //@@viewOn:defaultProps
     defaultProps: {
         data: null,
-        handleOpen: ()=>{},
-        handleUpdate: ()=>{}
+        handleOpen: () => { },
+        handleUpdate: () => { }
     },
     //@@viewOff:defaultProps
 
@@ -38,10 +42,19 @@ export const StudyProgrammeTile = createVisualComponent({
         // do NOT use keywords "this"!!!
 
         //@@viewOn:private
-        const MENU_ACTIONS = [
-            { icon: "mdi-pencil", content: <UU5.Bricks.Lsi lsi={Lsi.menuActions.editProgramme} />, onClick: () => props.handleUpdate(props.data) }
-          ];
-      
+
+        const hasPermissionToEdit = () => {
+            return UU5.Common.Tools.hasSomeProfiles(authorizedProfiles, [Profiles.STUDYDEP]);
+        }
+
+        const MENU_ACTIONS = () => {
+
+            if (hasPermissionToEdit() === true) {
+                return [
+                    { icon: "mdi-pencil", content: <UU5.Bricks.Lsi lsi={Lsi.menuActions.editProgramme} />, onClick: () => props.handleUpdate(props.data) }
+                ];
+            }
+        }
 
         const prepareRow = (attribute, content) => {
             return (
@@ -60,6 +73,10 @@ export const StudyProgrammeTile = createVisualComponent({
         //@@viewOn:interface
         //@@viewOff:interface
 
+        //@viewOn:hooks
+        const authorizedProfiles = useContext(SubjectManInstanceContext).data.authorizedProfiles;
+        //@viewOff:hooks
+
         //@@viewOn:render
         const className = Config.Css.css``;
         // { id, className, style, disabled, hidden }
@@ -75,10 +92,10 @@ export const StudyProgrammeTile = createVisualComponent({
         return currentNestingLevel ? (
             <div {...attrs}>
                 <UU5.BlockLayout.Tile>
-                    <UU5.BlockLayout.Block  actions={MENU_ACTIONS}>
+                    <UU5.BlockLayout.Block actions={MENU_ACTIONS()}>
                         <UU5.BlockLayout.Row>
                             <UU5.Bricks.Link>
-                                <UU5.BlockLayout.Text weight="primary"><UU5.Bricks.Link onClick={()=>props.handleOpen(props.data.data)}><UU5.Bricks.Lsi lsi={Lsi.tile.header} /></UU5.Bricks.Link></UU5.BlockLayout.Text>
+                                <UU5.BlockLayout.Text weight="primary"><UU5.Bricks.Link onClick={() => props.handleOpen(props.data.data)}>{props.data.data?.name}</UU5.Bricks.Link></UU5.BlockLayout.Text>
                             </UU5.Bricks.Link>
                         </UU5.BlockLayout.Row>
                     </UU5.BlockLayout.Block>
@@ -124,7 +141,7 @@ export const StudyProgrammeTile = createVisualComponent({
                                 <UU5.Bricks.Column colWidth="xs-4"><UU5.Bricks.Lsi lsi={Lsi.tile.created} /></UU5.Bricks.Column>
 
                                 <UU5.Bricks.Column colWidth="xs-8">
-                                <UU5.Bricks.DateTime
+                                    <UU5.Bricks.DateTime
                                         timeZone={UU5.Environment.dateTimeZone}
                                         value={props.data.data?.sys.cts}
                                     />

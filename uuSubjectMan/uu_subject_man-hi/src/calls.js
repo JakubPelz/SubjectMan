@@ -91,6 +91,12 @@ let Calls = {
     return calledData;
   },
 
+  async updateSubject(dtoIn){
+    let commandUri = Calls.getCommandUri("subject/update");
+    const calledData = await Calls.call("post", commandUri, dtoIn);
+    return calledData;
+  },
+
   async asignSubject(dtoIn){
     let commandUri = Calls.getCommandUri("subject/assignSubject");
     const calledData = await Calls.call("post", commandUri, dtoIn);

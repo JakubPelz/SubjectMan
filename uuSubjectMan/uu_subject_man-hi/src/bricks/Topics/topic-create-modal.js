@@ -59,8 +59,6 @@ const TopicCreateModal = createVisualComponentWithRef({
           controlled={false}
           required
         />
-        
-
         <UU5.Forms.Controls controlled={false} />
       </UU5.Forms.Form>
     );

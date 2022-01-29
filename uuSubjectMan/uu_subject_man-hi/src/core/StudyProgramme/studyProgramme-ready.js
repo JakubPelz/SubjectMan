@@ -2,10 +2,13 @@
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Uu5Tiles from "uu5tilesg02";
-import { createVisualComponent, useRef, useSession } from "uu5g04-hooks";
+import { createVisualComponent, useRef, useContext } from "uu5g04-hooks";
 import Config from "../config/config";
 import StudyProgrammeTile from "../../bricks/StudyProgramme/studyProgramme-tile";
-import GlobalConfig from "../../config/config";
+
+import Profiles from "../../config/profiles";
+import SubjectManInstanceContext from "../../bricks/subjectMan-instance-context"
+
 //@@viewOff:imports
 
 const STATICS = {
@@ -30,9 +33,9 @@ export const StudyProgrammeReady = createVisualComponent({
     //@@viewOn:defaultProps
     defaultProps: {
         data: [],
-        handleOpen: ()=>{},
-        handleCreate: ()=>{},
-        handleUpdate: ()=>{}
+        handleOpen: () => { },
+        handleCreate: () => { },
+        handleUpdate: () => { }
     },
     //@@viewOff:defaultProps
 
@@ -42,28 +45,31 @@ export const StudyProgrammeReady = createVisualComponent({
         //@@viewOn:private
         const STUDY_PROGRAMME_ACTIONS = ({ screenSize }) => {
             return [
-              {
-                content: {
-                  en: "Add study programme",
-                  cs: "Přidej studijní program"
-                },
-                onClick: () => {props?.handleCreate()},
-                icon: "mdi-plus-circle",
-                colorSchema: "primary",
-                bgStyle: "filled",
-                active: true
-              }
+                {
+                    content: {
+                        en: "Add study programme",
+                        cs: "Přidej studijní program"
+                    },
+                    onClick: () => { props?.handleCreate() },
+                    icon: "mdi-plus-circle",
+                    colorSchema: "primary",
+                    bgStyle: "filled",
+                    active: true
+                }
             ];
-          };
+        };
+
+        const hasPermissionToAdd = () => {
+            return UU5.Common.Tools.hasSomeProfiles(authorizedProfiles, [Profiles.STUDYDEP]);
+        }
         //@@viewOff:private
 
         //@@viewOn:interface
         //@@viewOff:interface
 
         //@@viewOn:hooks
-        const addFormRef = useRef();   
-        console.debug(useSession());     
-
+        const addFormRef = useRef();
+        const authorizedProfiles = useContext(SubjectManInstanceContext).data.authorizedProfiles;
         //@@viewOff:hooks
 
         //@@viewOn:render
@@ -81,23 +87,19 @@ export const StudyProgrammeReady = createVisualComponent({
         return currentNestingLevel ? (
             <div {...attrs}>
                 <Uu5Tiles.ControllerProvider data={props.data ? props.data : []}>
-                <UU5.Common.Identity>
-                    {({ identity, login, logout, ...opt }) => {
-                    console.debug(identity);
-                    console.debug(opt);
-                    }}
-                </UU5.Common.Identity>
-                    <Uu5Tiles.ActionBar title={""} actions={UU5.Common.Tools.hasProfile(GlobalConfig.Profiles, "StudyDepartment") ? STUDY_PROGRAMME_ACTIONS : null}/>
+                    {
+                        hasPermissionToAdd() === true ? <Uu5Tiles.ActionBar title={""} actions={STUDY_PROGRAMME_ACTIONS} /> : null
+                    }
                     <Uu5Tiles.Grid
                         tileMinWidth={200}
                         tileMaxWidth={500}
                         tileSpacing={8}
                         rowSpacing={8}
                     >
-                        <StudyProgrammeTile 
-                        key={props.data?.id}
-                        handleOpen={props.handleOpen}
-                        handleUpdate={props.handleUpdate}/>
+                        <StudyProgrammeTile
+                            key={props.data?.id}
+                            handleOpen={props.handleOpen}
+                            handleUpdate={props.handleUpdate} />
                     </Uu5Tiles.Grid>
                 </Uu5Tiles.ControllerProvider>
             </div>
