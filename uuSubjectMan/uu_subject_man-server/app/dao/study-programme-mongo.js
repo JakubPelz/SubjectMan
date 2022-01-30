@@ -6,6 +6,7 @@ class StudyProgrammeMongo extends UuObjectDao {
   async createSchema(){
     await super.createIndex({awid: 1, _id: 1}, {unique: true});
   }
+
   async create(studyProgramme) {
     return await super.insertOne(studyProgramme);
   }
@@ -19,23 +20,50 @@ class StudyProgrammeMongo extends UuObjectDao {
     return await super.findOne(filter);
   }
 
-  async getWithSubjects(studyProgrammeId){
+  async getSubjectsByStudyProgrammeId(studyProgrammeId){
     let aggregation = [
-      {"$addFields":{
-        "stprgId": {
-          "$toString": "$_id"
+      {
+        "$unwind":{"path": "$subjects"}
+      },
+      {
+        "$addFields": {
+          "subjectIdAsObjectId": {"$toObjectId": "$subjects.subjectId"},
+          "studyProgrammeAsStringId": {"$toString": "$_id"},
         }
-      }},
-      {"$lookup":{
-        "from": "subject",
-        "localField": "stprgId",
-        "foreignField": "studyProgrammeId",
-        "as": "subjects"
-      }},
-      {"$match":{
-        "stprgId": studyProgrammeId
-      }}
-    ]
+      },
+      {
+        "$match":{"studyProgrammeAsStringId": studyProgrammeId}
+      },
+      {
+        "$lookup":{
+          "from": "subject",
+          "localField": "subjectIdAsObjectId",
+          "foreignField": "_id",
+          "as": "subjectsNew"
+        }
+      },
+      {
+        "$unwind":{"path": "$subjectsNew"}
+      },
+      {
+        "$addFields": {
+          "subjectsNew.semester": "$subjects.semester",
+        }
+      },
+      {
+        "$group":{"_id": '$_id',
+        "subjects": {
+            "$push": '$subjectsNew'
+        }}
+      },
+      {
+        "$unwind":{"path": "$subjects"}
+      },
+      {
+        "$replaceRoot":{"newRoot": "$subjects"}
+      }
+    ];
+
     return await super.aggregate(aggregation);
   }
 

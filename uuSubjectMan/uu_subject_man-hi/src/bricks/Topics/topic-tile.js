@@ -23,6 +23,7 @@ export const TopicTile = createVisualComponent({
         data: UU5.PropTypes.object,
         handleOpen: UU5.PropTypes.func,
         handleUpdate: UU5.PropTypes.func,
+        handleRemove: UU5.PropTypes.func,
         handleDigitalContentAdd: UU5.PropTypes.func,
         handleDigitalContentRemove: UU5.PropTypes.func
     },
@@ -33,6 +34,7 @@ export const TopicTile = createVisualComponent({
         data: null,
         handleOpen: () => { },
         handleUpdate: () => { },
+        handleRemove: () => {},
         handleDigitalContentAdd: () => { },
         handleDigitalContentRemove: () => { },
     },
@@ -43,7 +45,8 @@ export const TopicTile = createVisualComponent({
 
         //@@viewOn:private
         const MENU_ACTIONS = [
-            { icon: "mdi-plus", content: "Přidej", onClick: () => props.handleDigitalContentAdd(props.data) }
+            { icon: "mdi-plus", content: Lsi.menuActions.addDigitalContent, onClick: () => props.handleDigitalContentAdd(props.data) },
+            { icon: "mdi-minus", content: Lsi.menuActions.removeTopic, onClick: () => props.handleRemove(props.data.data.id) }
         ];
 
 
@@ -85,59 +88,58 @@ export const TopicTile = createVisualComponent({
                             <UU5.BlockLayout.Column width={150}><UU5.Bricks.Lsi lsi={Lsi.tile.name} /></UU5.BlockLayout.Column>
                             <UU5.BlockLayout.Column width={150}>{props.data.data?.name}</UU5.BlockLayout.Column>
                         </UU5.BlockLayout.Row>
+                        <UU5.BlockLayout.Row weight="secondary">
+                            <UU5.BlockLayout.Column>{props.data.data?.description}</UU5.BlockLayout.Column>
+                        </UU5.BlockLayout.Row>
                     </UU5.BlockLayout.Block>
                     <UU5.BlockLayout.Line />
                     <UU5.BlockLayout.Block>
                         {
                             props.data.data?.digitalContents?.map((elemnt) => (
                                 <UU5.BlockLayout.Row>
-                                    <UU5.BlockLayout.Column width={200}>{elemnt.name}</UU5.BlockLayout.Column>
-                                    <UU5.BlockLayout.Column width={200}><UU5.Bricks.Link href={elemnt.link} target="_blank">odkaz</UU5.Bricks.Link></UU5.BlockLayout.Column>
+                                    <UU5.BlockLayout.Column width="70%">{elemnt.name}</UU5.BlockLayout.Column>
+                                    <UU5.BlockLayout.Column width="10%"><UU5.Bricks.Link href={elemnt.link} target="_blank"><UU5.Bricks.Lsi lsi = {Lsi.tile.link} /></UU5.Bricks.Link></UU5.BlockLayout.Column>
                                     {
                                         () => {
                                             if (elemnt.type === "video")
                                                 return (
                                                     <>
-                                                        <UU5.BlockLayout.Column>
-                                                            <UU5.Bricks.Icon icon="plus4u-video" />
+                                                        <UU5.BlockLayout.Column width="10%">
+                                                            <UU5.Bricks.Image width={32} src="../assets/icons/video.png" />
                                                         </UU5.BlockLayout.Column>
-                                                        <UU5.BlockLayout.Column>
-                                                            <UU5.Bricks.YoutubeVideo src={elemnt.link} />
-                                                        </UU5.BlockLayout.Column>
+    
                                                     </>
                                                 )
                                             else if (elemnt.type === "youtube")
                                                 return (
                                                     <>
-                                                        <UU5.BlockLayout.Column>
-                                                            <UU5.Bricks.Icon icon="plus4u-video" />
+                                                        <UU5.BlockLayout.Column width="10%">
+                                                        <UU5.Bricks.Image width={32} src="../assets/icons/youtube.png" />
                                                         </UU5.BlockLayout.Column>
-                                                        <UU5.BlockLayout.Column>
-                                                            <UU5.Bricks.YoutubeVideo size="xs" src={elemnt.link} />
-                                                        </UU5.BlockLayout.Column>
+    
                                                     </>
                                                 )
                                             else if (elemnt.type === "uuBook")
                                                 return (
                                                     <>
-                                                        <UU5.BlockLayout.Column>
-                                                            <UU5.Bricks.Icon icon="plus4u-book" />
+                                                        <UU5.BlockLayout.Column width="10%">
+                                                        <UU5.Bricks.Image width={32} src="../assets/icons/book.png" />
                                                         </UU5.BlockLayout.Column>
                                                     </>
                                                 )
                                             else if (elemnt.type === "uuCourse")
                                                 return (
                                                     <>
-                                                        <UU5.BlockLayout.Column>
-                                                            <UU5.Bricks.Icon icon="plus4u-do-it" />
+                                                        <UU5.BlockLayout.Column width="10%">
+                                                        <UU5.Bricks.Image width={32} src="../assets/icons/course.png" />
                                                         </UU5.BlockLayout.Column>
                                                     </>
                                                 )
                                             else if (elemnt.type === "link")
                                                 return (
                                                     <>
-                                                        <UU5.BlockLayout.Column>
-                                                            <UU5.Bricks.Icon icon="plus4u-link" />
+                                                        <UU5.BlockLayout.Column width="10%">
+                                                        <UU5.Bricks.Image width={32} src="../assets/icons/link.png" />
                                                         </UU5.BlockLayout.Column>
                                                     </>
                                                 )
@@ -145,7 +147,7 @@ export const TopicTile = createVisualComponent({
                                                 return <UU5.Bricks.Icon icon="plus4u5-close" />
                                         }
                                     }
-                                    <UU5.BlockLayout.Column width={150}><UU5.Bricks.Button onClick={()=>{props?.handleDigitalContentRemove(props.data, elemnt.id)}}>Odstraň</UU5.Bricks.Button></UU5.BlockLayout.Column>
+                                    <UU5.BlockLayout.Column width="10%"><UU5.Bricks.Button onClick={()=>{props?.handleDigitalContentRemove(props.data, elemnt.id)}}><UU5.Bricks.Lsi lsi = {Lsi.tile.delete} /></UU5.Bricks.Button></UU5.BlockLayout.Column>
                                 </UU5.BlockLayout.Row>
                             ))
                         }

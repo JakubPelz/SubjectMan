@@ -3,6 +3,7 @@ import UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Uu5Tiles from "uu5tilesg02";
 import { createVisualComponent, useRef, useContext } from "uu5g04-hooks";
+import Lsi from "./lsi/topicsInSubjectListReady-lis"
 import Config from "../config/config";
 
 import TopicsTile from "../../bricks/Topics/topic-tile"
@@ -26,6 +27,7 @@ export const TopicsInSubjectListReady = createVisualComponent({
     propTypes: {
         data: UU5.PropTypes.array,
         handleTopicAdd: UU5.PropTypes.func,
+        handleTopicRemove: UU5.PropTypes.func,
         handleDigitalContentAdd: UU5.PropTypes.func,
         handleDigitalContentRemove: UU5.PropTypes.func
     },
@@ -35,6 +37,7 @@ export const TopicsInSubjectListReady = createVisualComponent({
     defaultProps: {
         data: [],
         handleTopicAdd: () => { },
+        handleTopicRemove: () => { },
         handleDigitalContentAdd: () => { },
         handleDigitalContentRemove: () => { },
     },
@@ -47,10 +50,7 @@ export const TopicsInSubjectListReady = createVisualComponent({
         const TOPICS_ACTIONS = ({ screenSize }) => {
             return [
                 {
-                    content: {
-                        en: "Add topic",
-                        cs: "Přidej téma"
-                    },
+                    content: Lsi.addTopic,
                     onClick: () => { props?.handleTopicAdd() },
                     icon: "mdi-plus-circle",
                     colorSchema: "primary",
@@ -63,7 +63,7 @@ export const TopicsInSubjectListReady = createVisualComponent({
         const TOPICS_COLUMNS = [
             {
                 cell: cellProps => <UU5.Bricks.Lsi lsi={cellProps.data.data.name} />,
-                header: <UU5.Bricks.Lsi lsi={{ en: "Species", cs: "Název" }} />
+                header: <UU5.Bricks.Lsi lsi={Lsi.name} />
             }
         ];
 
@@ -98,7 +98,7 @@ export const TopicsInSubjectListReady = createVisualComponent({
                     <Uu5Tiles.ActionBar title={""} actions={hasPermissionToAdd() === true ? TOPICS_ACTIONS : []} />
                     <Uu5Tiles.Grid
                         tileMinWidth={400}
-                        tileMaxWidth={1000}
+                        tileMaxWidth={1920}
                         tileSpacing={8}
                         rowSpacing={8}
                     >
@@ -106,6 +106,7 @@ export const TopicsInSubjectListReady = createVisualComponent({
                         key={props.data?.id}
                         handleOpen={props.handleOpen}
                         handleUpdate={props.handleUpdate}
+                        handleRemove={props.handleTopicRemove}
                         handleDigitalContentAdd={props.handleDigitalContentAdd}
                         handleDigitalContentRemove={props.handleDigitalContentRemove}
                         />

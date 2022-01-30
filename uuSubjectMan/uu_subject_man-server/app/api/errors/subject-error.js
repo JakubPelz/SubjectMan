@@ -19,6 +19,13 @@ const Create = {
       this.message = "Create subject by subject Dao create failed.";
     }
   },
+  SubjectCustomError: class extends SubjectManUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}subjectCustomError`;
+      this.message = "Some error has occurred.";
+    }
+  }
 };
 
 const List = {
@@ -30,7 +37,20 @@ const List = {
       this.message = "Subject list by subject Dao list failed.";
     }
   },
-
+  SubjectListDoesntExist: class extends SubjectManUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}subjectListDoesntExist`;
+      this.message = "Searched subject does not exist.";
+    }
+  },
+  SubjectCustomError: class extends SubjectManUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}subjectCustomError`;
+      this.message = "Some error has occurred.";
+    }
+  }
 };
 
 const ListByStudyProgramme = {
@@ -67,14 +87,20 @@ const Get = {
       this.message = "Subject get by subject Dao get failed.";
     }
   },
-  SubjectGetDontExist: class extends SubjectManUseCaseError {
+  SubjectGetDoesntExist: class extends SubjectManUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Create.UC_CODE}subjectGetDontExist`;
+      this.code = `${Create.UC_CODE}subjectGetDoesntExist`;
       this.message = "Searched subject do not exist.";
     }
   },
-
+  SubjectCustomError: class extends SubjectManUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}subjectCustomError`;
+      this.message = "Some error has occurred.";
+    }
+  }
 };
 
 const Update = {
@@ -93,90 +119,17 @@ const Update = {
       this.message = "Update subject by subject Dao update failed.";
     }
   },
-};
-
-const AssignSubject = {
-  UC_CODE: `${SUBJECT_ERROR_PREFIX}assignSubject/`,
-  InvalidDtoIn: class extends SubjectManUseCaseError {
+  SubjectCustomError: class extends SubjectManUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Create.UC_CODE}invalidDtoIn`;
-      this.message = "DtoIn is not valid.";
+      this.code = `${Create.UC_CODE}subjectCustomError`;
+      this.message = "Some error has occurred.";
     }
-  },
-  SubjectGetFailed: class extends SubjectManUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Create.UC_CODE}subjectDaoAssignStudyProgramFailed`;
-      this.message = "Subject get by subject Dao get failed.";
-    }
-  },
-  SubjectDaoUpdateFailed: class extends SubjectManUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Create.UC_CODE}subjectDaoAssignStudyProgramFailed`;
-      this.message = "Assign study programme to subject by subject Dao update failed.";
-    }
-  },
-  SubjectDontExistFailed: class extends SubjectManUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Create.UC_CODE}subjectDaoAssignStudyProgramFailed`;
-      this.message = "Subject id you selected does not exist.";
-    }
-  },
-  SubjecAlreadyAssignedToStudyProgFailed: class extends SubjectManUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Create.UC_CODE}subjectDaoAssignStudyProgramFailed`;
-      this.message = "Subject is already assigned to this study programme.";
-    }
-  },
-};
-
-const RemoveSubject = {
-  UC_CODE: `${SUBJECT_ERROR_PREFIX}removeSubject/`,
-  InvalidDtoIn: class extends SubjectManUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Create.UC_CODE}invalidDtoIn`;
-      this.message = "DtoIn is not valid.";
-    }
-  },
-  SubjectGetFailed: class extends SubjectManUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Create.UC_CODE}subjectDaoRemoveStudyProgramFailed`;
-      this.message = "Subject get by subject Dao get failed.";
-    }
-  },
-  SubjectDaoUpdateFailed: class extends SubjectManUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Create.UC_CODE}subjectDaoRemoveStudyProgramFailed`;
-      this.message = "Remove study programme from subject by subject Dao update failed.";
-    }
-  },
-  SubjectDontExistFailed: class extends SubjectManUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Create.UC_CODE}subjectDaoRemoveStudyProgramFailed`;
-      this.message = "Subject id you selected does not exist.";
-    }
-  },
-  SubjecNotAssignedToStudyProgFailed: class extends SubjectManUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Create.UC_CODE}subjectDaoRemoveStudyProgramFailed`;
-      this.message = "Subject is not assigned to this study programme.";
-    }
-  },
+  }
 };
 
 module.exports = {
-  RemoveSubject,
   ListByStudyProgramme,
-  AssignSubject,
   Update,
   Create,
   List,

@@ -396,6 +396,10 @@
         "profileList": ["Public"],
         "sysStateList": ["active"]
       },
+      "sys/uuAppWorkspace/load": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities", "StudyCoordinators", "Teachers", "Students"]
+      },
       "subject/list": {
         "sysStateList": ["active"],
         "profileList": ["Authorities", "StudyCoordinators", "Public", "Students", "Teachers"]
@@ -428,6 +432,14 @@
         "sysStateList": ["active"],
         "profileList": ["Authorities", "StudyCoordinators", "Teachers"]
       },
+      "topic/digitalContentAdd": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities", "StudyCoordinators", "Teachers"]
+      },
+      "topic/digitalContentRemove": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities", "StudyCoordinators", "Teachers"]
+      },
       "studyProgramme/create": {
         "sysStateList": ["active"],
         "profileList": ["Authorities", "StudyCoordinators"]
@@ -444,7 +456,7 @@
         "sysStateList": ["active"],
         "profileList": ["Authorities", "StudyCoordinators", "Public", "Students", "Teachers"]
       },
-      "subject/assignSubject": {
+      "studyProgramme/assignSubject": {
         "sysStateList": ["active"],
         "profileList": ["Authorities", "StudyCoordinators"]
       },
@@ -452,21 +464,13 @@
         "sysStateList": ["active"],
         "profileList": ["Authorities", "StudyCoordinators", "Public", "Students", "Teachers"]
       },
-      "subject/removeSubject": {
+      "studyProgramme/removeSubject": {
         "sysStateList": ["active"],
         "profileList": ["Authorities", "StudyCoordinators"]
       },
-      "topic/digitalContentAdd": {
+      "studyProgramme/listSubjectByStudyProgrammeId": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "StudyCoordinators", "Teachers"]
-      },
-      "topic/digitalContentRemove": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities", "StudyCoordinators", "Teachers"]
-      },
-      "sys/uuAppWorkspace/load": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities", "StudyCoordinators", "Teachers"]
+        "profileList": ["Authorities", "StudyCoordinators", "Public", "Students", "Teachers"]
       }
     }
   }

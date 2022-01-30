@@ -4,6 +4,7 @@ import "uu5g04-bricks";
 import Uu5Tiles from "uu5tilesg02";
 import { createVisualComponent, useRef } from "uu5g04-hooks";
 import Config from "../config/config";
+import Lsi from "./lsi/subjectList-ready";
 //@@viewOff:imports
 
 const STATICS = {
@@ -39,10 +40,7 @@ export const SubjectsListReady = createVisualComponent({
         const STUDY_PROGRAMME_ACTIONS = ({ screenSize }) => {
             return [
                 {
-                    content: {
-                        en: "Add subject",
-                        cs: "Přidej předmět"
-                    },
+                    content: Lsi.addSubject,
                     onClick: () => { props?.handleCreate(); },
                     icon: "mdi-plus-circle",
                     colorSchema: "primary",
@@ -55,19 +53,19 @@ export const SubjectsListReady = createVisualComponent({
         const SUBJECT_COLUMNS = [
             {
                 cell: cellProps => <UU5.Bricks.Link onClick={()=>{props?.handleOpen(cellProps.data.data);}}><UU5.Bricks.Lsi lsi={cellProps.data.data.name} /></UU5.Bricks.Link>,
-                header: <UU5.Bricks.Lsi lsi={{ en: "Species", cs: "Název" }} />
+                header: <UU5.Bricks.Lsi lsi={Lsi.detail.name} />
             },
             {
                 cell: cellProps => <UU5.Bricks.Lsi lsi={cellProps.data.data.credits} />,
-                header: <UU5.Bricks.Lsi lsi={{ en: "Credits", cs: "Kredity" }} />
+                header: <UU5.Bricks.Lsi lsi={Lsi.detail.credits} />
             },
             {
                 cell: cellProps => <UU5.Bricks.Lsi lsi={cellProps.data.data.language} />,
-                header: <UU5.Bricks.Lsi lsi={{ en: "Language", cs: "Jazyk" }} />
+                header: <UU5.Bricks.Lsi lsi={Lsi.detail.language} />
             },
             {
                 cell: cellProps => <UU5.Bricks.Lsi lsi={cellProps.data.data.guarantor} />,
-                header: <UU5.Bricks.Lsi lsi={{ en: "Guarantor", cs: "Garant" }} />
+                header: <UU5.Bricks.Lsi lsi={Lsi.detail.guarantor} />
             }
         ];
         //@@viewOff:private

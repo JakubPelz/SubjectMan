@@ -38,10 +38,12 @@ let Calls = {
     return await Calls.getWorkspace();
   },
 
-  loadStudyProgrammeInstance(dtoIn) {
+  async loadStudyProgrammeInstance(dtoIn) {
     let commandUri = Calls.getCommandUri("sys/uuAppWorkspace/load");
     return Calls.call("get", commandUri, dtoIn);
   },
+
+// Study programmes
 
   async listStudyProgrammes(dtoIn){
     let commandUri = Calls.getCommandUri("studyProgramme/list");
@@ -67,14 +69,30 @@ let Calls = {
     return calledData;
   },
 
-  async listSubjects(dtoIn){
-    let commandUri = Calls.getCommandUri("subject/list");
+  // Subjects in studyProgramme
+
+  async listSubjectsByStudyProgramme(dtoIn){
+    let commandUri = Calls.getCommandUri("studyProgramme/listSubjectByStudyProgrammeId");
     const calledData = await Calls.call("get", commandUri, dtoIn);
     return calledData;
   },
 
-  async listSubjectsByStudyProgramme(dtoIn){
-    let commandUri = Calls.getCommandUri("subject/listByStudyProgramme");
+  async asignSubject(dtoIn){
+    let commandUri = Calls.getCommandUri("studyProgramme/assignSubject");
+    const calledData = await Calls.call("post", commandUri, dtoIn);
+    return calledData;
+  },
+  
+  async removeSubject(dtoIn){
+    let commandUri = Calls.getCommandUri("studyProgramme/removeSubject");
+    const calledData = await Calls.call("post", commandUri, dtoIn);
+    return calledData;
+  },
+
+// Subjects
+
+  async listSubjects(dtoIn){
+    let commandUri = Calls.getCommandUri("subject/list");
     const calledData = await Calls.call("get", commandUri, dtoIn);
     return calledData;
   },
@@ -97,31 +115,27 @@ let Calls = {
     return calledData;
   },
 
-  async asignSubject(dtoIn){
-    let commandUri = Calls.getCommandUri("subject/assignSubject");
-    const calledData = await Calls.call("post", commandUri, dtoIn);
-    return calledData;
-  },
-  
-  async removeSubject(dtoIn){
-    let commandUri = Calls.getCommandUri("subject/removeSubject");
-    const calledData = await Calls.call("post", commandUri, dtoIn);
-    return calledData;
-  },
-
+  // Topics in subject
   async listTopicsInSubject(dtoIn){
     let commandUri = Calls.getCommandUri("topic/list");
     const calledData = await Calls.call("get", commandUri, dtoIn);
     return calledData;
   },
 
+  // Topics
   async addTopic(dtoIn){
     let commandUri = Calls.getCommandUri("topic/create");
     const calledData = await Calls.call("post", commandUri, dtoIn);
     return calledData;
   },
   
+  async removeTopic(dtoIn){
+    let commandUri = Calls.getCommandUri("topic/remove");
+    const calledData = await Calls.call("post", commandUri, dtoIn);
+    return calledData;
+  },
 
+  // Digital content
   async addDigitalContent(dtoIn){
     let commandUri = Calls.getCommandUri("topic/digitalContentAdd");
     const calledData = await Calls.call("post", commandUri, dtoIn);

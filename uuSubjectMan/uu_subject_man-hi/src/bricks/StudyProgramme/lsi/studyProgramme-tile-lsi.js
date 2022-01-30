@@ -1,8 +1,8 @@
 export default {
     menuActions:{
         editProgramme: {
-            cs: "Edituj stud. program",
-            en: "Edit programme",
+            cs: "Edituj studijní program",
+            en: "Edit study programme",
         }
     },
     tile:{
@@ -16,7 +16,7 @@ export default {
         },
         description:{
             cs: "Popis: ",
-            en: "Descr.: "
+            en: "Description: "
         },
         form:{
             cs: "Forma: ",
@@ -24,7 +24,7 @@ export default {
         },
         language:{
             cs: "Jazyk: ",
-            en: "Lang.: "
+            en: "Language: "
         },
         degree:{
             cs: "Stupeň vzdělání: ",

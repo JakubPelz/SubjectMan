@@ -52,6 +52,7 @@ export const TopicsInSubjectList = createVisualComponent({
                         <>
                             <TopicsInSubjectListReady data={data}
                             handleTopicAdd={handleTopicAdd}
+                            handleTopicRemove={handleTopicRemove}
                             handleDigitalContentAdd={handleDigitalContentAdd}
                             handleDigitalContentRemove={handleDigitalContentRemove}
                             />
@@ -81,6 +82,7 @@ export const TopicsInSubjectList = createVisualComponent({
             handlerMap: {
                 load: Calls.listTopicsInSubject,
                 addTopic: Calls.addTopic,
+                removeTopic: Calls.removeTopic,
                 addDigitalContent: Calls.addDigitalContent,
                 removeDigitalContent: Calls.removeDigitalContent
             },
@@ -107,7 +109,6 @@ export const TopicsInSubjectList = createVisualComponent({
                         });
                     }}
                     onSaveFail={(opt) => {
-                        console.debug(opt);
                         opt.component.getAlertBus().setAlert({
                             content: (<UU5.Bricks.Lsi lsi={Lsi.modal.onSaveFail.creation} />),
                             colorSchema: "danger",
@@ -138,6 +139,24 @@ export const TopicsInSubjectList = createVisualComponent({
             });
         }, [showModalTopic, handlerMap.addTopic, handlerMap.load, unmountedRef]);
 
+        const handleTopicRemove = (id) => {
+            try
+            {
+                handlerMap.removeTopic({"id": id});
+                alertBusRef.current.setAlert({
+                    content: (<UU5.Bricks.Lsi lsi={Lsi.modal.onSaveDone.creation} />),
+                    colorSchema: "success",
+                });
+            }
+            catch(e){
+                alertBusRef.current.setAlert({
+                    content: (<UU5.Bricks.Lsi lsi={Lsi.modal.onSaveFail.creation} />),
+                    colorSchema: "danger",
+                });
+            }
+      
+            handlerMap.load({subjectId: props.subjectId});
+        }
 
         const showModalDigitalContent = useCallback((onSave) => {
             const modal = modalRef.current;

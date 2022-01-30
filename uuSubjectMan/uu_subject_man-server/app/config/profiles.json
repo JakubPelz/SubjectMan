@@ -4,7 +4,7 @@
     "useCaseMap": {}
   },
   "*": {
-    "profileList": ["Authorities","StudyCoordinators","AwidLicenseOwner","Public", "Students", "Teachers"],
+    "profileList": ["Authorities","StudyCoordinators","AwidLicenseOwner","Public","Students","Teachers"],
     "useCaseMap": {
       "sys/uuAppWorkspace/init": {
         "sysStateList": ["created"],
@@ -17,13 +17,17 @@
         "sysStateList": ["created"],
         "profileList": ["Public","AwidLicenseOwner"]
       },
+      "sys/uuAppWorkspace/load": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities","StudyCoordinators","Teachers","Students"]
+      },
       "subject/list": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","StudyCoordinators","Public", "Students", "Teachers"]
+        "profileList": ["Authorities","StudyCoordinators","Public","Students","Teachers"]
       },
       "subject/get": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","StudyCoordinators","Public", "Students", "Teachers"]
+        "profileList": ["Authorities","StudyCoordinators","Public","Students","Teachers"]
       },
       "subject/create": {
         "sysStateList": ["active"],
@@ -31,23 +35,31 @@
       },
       "subject/update": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","StudyCoordinators", "Teachers"]
+        "profileList": ["Authorities","StudyCoordinators","Teachers"]
       },
       "topic/create": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","StudyCoordinators", "Teachers"]
+        "profileList": ["Authorities","StudyCoordinators","Teachers"]
       },
       "topic/list": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","StudyCoordinators","Public", "Students", "Teachers"]
+        "profileList": ["Authorities","StudyCoordinators","Public","Students","Teachers"]
       },
       "topic/update": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","StudyCoordinators", "Teachers"]
+        "profileList": ["Authorities","StudyCoordinators","Teachers"]
       },
       "topic/remove": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","StudyCoordinators", "Teachers"]
+        "profileList": ["Authorities","StudyCoordinators","Teachers"]
+      },
+      "topic/digitalContentAdd": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities","StudyCoordinators","Teachers"]
+      },
+      "topic/digitalContentRemove": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities","StudyCoordinators","Teachers"]
       },
       "studyProgramme/create": {
         "sysStateList": ["active"],
@@ -59,35 +71,27 @@
       },
       "studyProgramme/list": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","StudyCoordinators","Public", "Students", "Teachers"]
+        "profileList": ["Authorities","StudyCoordinators","Public","Students","Teachers"]
       },
       "studyProgramme/get": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","StudyCoordinators","Public", "Students", "Teachers"]
+        "profileList": ["Authorities","StudyCoordinators","Public","Students","Teachers"]
       },
-      "subject/assignSubject": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities", "StudyCoordinators"]
-      },
-      "subject/listByStudyProgramme": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities","StudyCoordinators","Public", "Students", "Teachers"]
-      },
-      "subject/removeSubject": {
+      "studyProgramme/assignSubject": {
         "sysStateList": ["active"],
         "profileList": ["Authorities","StudyCoordinators"]
       },
-      "topic/digitalContentAdd": {
+      "subject/listByStudyProgramme": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","StudyCoordinators", "Teachers"]
+        "profileList": ["Authorities","StudyCoordinators","Public","Students","Teachers"]
       },
-      "topic/digitalContentRemove": {
+      "studyProgramme/removeSubject": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "StudyCoordinators","Teachers"]
+        "profileList": ["Authorities","StudyCoordinators"]
       },
-      "sys/uuAppWorkspace/load": {
+      "studyProgramme/listSubjectByStudyProgrammeId": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "StudyCoordinators","Teachers"]
+        "profileList": ["Authorities","StudyCoordinators","Public","Students","Teachers"]
       }
     }
   }

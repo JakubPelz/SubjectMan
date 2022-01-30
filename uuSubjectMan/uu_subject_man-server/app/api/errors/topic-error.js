@@ -19,13 +19,27 @@ const Create = {
       this.message = "Create topic by topic Dao create failed.";
     }
   },
-  TopicFindSubjectOnCreateFailed: class extends SubjectManUseCaseError {
+  SubjectFindFailed: class extends SubjectManUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Create.UC_CODE}topicFindSubjectOnCreateFailed`;
-      this.message = "Find subject when creating topic failed.";
+      this.code = `${Create.UC_CODE}subjectFindFailed`;
+      this.message = "Subject find failed.";
     }
   },
+  SubjectDoesntExist: class extends SubjectManUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}subjectDoesntExist`;
+      this.message = "Subject does not exist.";
+    }
+  },
+  TopicCustomError: class extends SubjectManUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}subjectCustomError`;
+      this.message = "Some error has occurred.";
+    }
+  }
 };
 
 const List = {
@@ -69,7 +83,6 @@ const Update = {
     }
   }
 };
-
 const Remove = {
   UC_CODE: `${TOPIC_ERROR_PREFIX}remove/`,
   InvalidDtoIn: class extends SubjectManUseCaseError {
@@ -104,11 +117,11 @@ const DigitalContentAdd = {
       this.message = "Topic get by topic Dao get failed.";
     }
   },
-  TopicDontExist: class extends SubjectManUseCaseError {
+  TopicDoesntExist: class extends SubjectManUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Create.UC_CODE}topicDontExist`;
-      this.message = "Searched topic do not exist.";
+      this.code = `${Create.UC_CODE}topicDoesntExist`;
+      this.message = "Searched topic does not exist.";
     }
   },
   TopicDaoUpdateFailed: class extends SubjectManUseCaseError {
@@ -136,11 +149,11 @@ const DigitalContentRemove = {
       this.message = "Topic get by topic Dao get failed.";
     }
   },
-  TopicDontExist: class extends SubjectManUseCaseError {
+  TopicDoesntExist: class extends SubjectManUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Create.UC_CODE}topicDontExist`;
-      this.message = "Searched topic do not exist.";
+      this.code = `${Create.UC_CODE}topicDoesntExist`;
+      this.message = "Searched topic does not exist.";
     }
   },
   TopicDaoUpdateFailed: class extends SubjectManUseCaseError {
@@ -150,11 +163,11 @@ const DigitalContentRemove = {
       this.message = "Update topic by topic Dao update failed.";
     }
   },
-  DigitalContentDontExist: class extends SubjectManUseCaseError {
+  DigitalContentDoesntExist: class extends SubjectManUseCaseError {
     constructor() {
       super(...arguments);
       this.code = `${Create.UC_CODE}digitalContentDontExist`;
-      this.message = "Searched digital content dont exist.";
+      this.message = "Searched digital content does not exist.";
     }
   }
 };

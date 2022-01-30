@@ -87,9 +87,7 @@ export const StudyProgrammeReady = createVisualComponent({
         return currentNestingLevel ? (
             <div {...attrs}>
                 <Uu5Tiles.ControllerProvider data={props.data ? props.data : []}>
-                    {
-                        hasPermissionToAdd() === true ? <Uu5Tiles.ActionBar title={""} actions={STUDY_PROGRAMME_ACTIONS} /> : null
-                    }
+                    <Uu5Tiles.ActionBar title={""} actions={hasPermissionToAdd() === true ? STUDY_PROGRAMME_ACTIONS : []} />
                     <Uu5Tiles.Grid
                         tileMinWidth={200}
                         tileMaxWidth={500}

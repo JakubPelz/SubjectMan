@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createComponent, useDataObject } from "uu5g04-hooks";
+import { createComponent, useDataObject, useSession } from "uu5g04-hooks";
 import Calls from "calls";
 import Config from "./config/config";
 import SubjectManInstanceContext from "./subjectMan-instance-context";
@@ -12,6 +12,8 @@ const SubjectManInstanceProvider = createComponent({
 
   render({ children }) {
     //@@viewOn:hooks
+    const session = useSession();
+    console.debug(session.session.isAuthenticated());
     const state = useDataObject({
       handlerMap: {
         load: handleLoad
@@ -21,11 +23,15 @@ const SubjectManInstanceProvider = createComponent({
 
     //@@viewOn:private
     async function handleLoad() {
-      const dtoOut = await Calls.loadStudyProgrammeInstance();
-      console.debug(dtoOut.authorizedProfiles);
+        if (session.session.isAuthenticated()){
+        const dtoOut = await Calls.loadStudyProgrammeInstance();
+        console.debug(dtoOut.authorizedProfiles);
 
-      if(dtoOut.authorizedProfiles)
-        return { authorizedProfiles: dtoOut.authorizedProfiles };
+        if(dtoOut.authorizedProfiles)
+          return { authorizedProfiles: dtoOut.authorizedProfiles };
+        else
+          return { authorizedProfiles: [] };
+      }
       else
         return { authorizedProfiles: [] };
     }

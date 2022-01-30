@@ -87,7 +87,7 @@ export const StudyProgrammeDetail = createVisualComponent({
 
         return currentNestingLevel ? (
             <div {...attrs}>
-                <UU5.Bricks.Section style={{"padding": "10px"}} header={<UU5.Bricks.Lsi lsi={Lsi.header} />}>
+                <UU5.Bricks.Section style={{"padding": "48px"}} header={<UU5.Bricks.Lsi lsi={Lsi.header} />}>
                     {renderChild()}
                 </UU5.Bricks.Section>
 

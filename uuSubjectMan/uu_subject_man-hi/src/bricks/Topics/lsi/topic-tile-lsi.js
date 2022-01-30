@@ -1,12 +1,16 @@
 export default {
     menuActions:{
         editProgramme: {
-            cs: "Edituj stud. program",
+            cs: "Editovat studijní program",
             en: "Edit programme",
         },
         addDigitalContent:{
-            cs: "test",
+            cs: "Přidej digitální obsah",
             en: "Add digital content"
+        },
+        removeTopic:{
+            cs: "Odeber téma",
+            en: "Remove topic"
         }
     },
     tile:{
@@ -17,6 +21,14 @@ export default {
         name:{
             cs: "Název: ",
             en: "Name: "
-        }
+        },
+        link:{
+            cs: "Odkaz",
+            en: "Link"
+        },
+        delete:{
+            cs: "Odstranit",
+            en: "Delete"
+        },
     }
 };

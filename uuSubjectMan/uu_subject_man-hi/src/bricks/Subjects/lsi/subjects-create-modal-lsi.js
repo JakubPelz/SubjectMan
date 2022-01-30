@@ -29,7 +29,7 @@ export default {
             en:"Language"
         },
         credits:{
-            cs:"Počet kreditů za celé studium",
+            cs:"Počet kreditů za splnění",
             en:"Credist per studium"
         },
         semester:{
@@ -42,7 +42,7 @@ export default {
         },
         guarantor:{
             cs:"Garant",
-            en:"Guarantors"
+            en:"Guarantor"
         }
     },
     submit: {

@@ -83,7 +83,7 @@ export const SubjectInStudyProgrammeList = createVisualComponent({
             },
             itemHandlerMap: {
             },
-            initialDtoIn: { pageInfo: {}, studyProgrammeId: props.studyProgrammeId }
+            initialDtoIn: { pageInfo: {}, id: props.studyProgrammeId }
         });
 
         const alertBusRef = useRef();
@@ -121,11 +121,12 @@ export const SubjectInStudyProgrammeList = createVisualComponent({
                 let data, error;
                 try {
                     const dataToAsign = {
-                        id: values.subjectId,
-                        studyProgrammeId: props.studyProgrammeId,
+                        subjectId: values.subjectId,
+                        id: props.studyProgrammeId,
                         semester: values.semester
                     }
                     data = await handlerMap.asignSubject(dataToAsign);
+                    await handlerMap.load({id: props.studyProgrammeId});
                 } catch (e) {
                     error = e;
                     console.error(error);
@@ -134,17 +135,17 @@ export const SubjectInStudyProgrammeList = createVisualComponent({
                 if (error) component.saveFail(error);
                 else component.saveDone(data);
             });
-        }, [showModal, handlerMap.asignSubject, handlerMap.load, unmountedRef]);
+        }, [showModal, handlerMap.load, unmountedRef]);
 
 
         const handleRemoveSubject = useCallback(async (subjectId) => {
             try {
                 const dataToAsign = {
-                    id: subjectId,
-                    studyProgrammeId: props.studyProgrammeId
+                    subjectId: subjectId,
+                    id: props.studyProgrammeId
                 }
                 let data = await handlerMap.removeSubject(dataToAsign);
-                await handlerMap.load({studyProgrammeId: props.studyProgrammeId});
+                await handlerMap.load({id: props.studyProgrammeId});
             } catch (e) {
                 let error = e;
                 console.error(error);

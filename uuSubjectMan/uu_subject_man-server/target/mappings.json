@@ -376,6 +376,11 @@
         "httpMethod": "GET",
         "type": "UVE"
       },
+      "sys/uuAppWorkspace/load": {
+        "realization": "api/controllers/SubjectManController.load",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
       "subject/list": {
         "realization": "api/controllers/SubjectController.list",
         "httpMethod": "GET",
@@ -416,6 +421,16 @@
         "httpMethod": "POST",
         "type": "CMD"
       },
+      "topic/digitalContentAdd": {
+        "realization": "api/controllers/TopicController.digitalContentAdd",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "topic/digitalContentRemove": {
+        "realization": "api/controllers/TopicController.digitalContentRemove",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
       "studyProgramme/create": {
         "realization": "api/controllers/StudyProgrammeController.create",
         "httpMethod": "POST",
@@ -436,33 +451,18 @@
         "httpMethod": "GET",
         "type": "CMD"
       },
-      "subject/assignSubject": {
-        "realization": "api/controllers/SubjectController.assignSubject",
+      "studyProgramme/assignSubject": {
+        "realization": "api/controllers/StudyProgrammeController.assignSubject",
         "httpMethod": "POST",
         "type": "CMD"
       },
-      "subject/listByStudyProgramme": {
-        "realization": "api/controllers/SubjectController.listByStudyProgramme",
-        "httpMethod": "GET",
-        "type": "CMD"
-      },
-      "subject/removeSubject": {
-        "realization": "api/controllers/SubjectController.removeSubject",
+      "studyProgramme/removeSubject": {
+        "realization": "api/controllers/StudyProgrammeController.removeSubject",
         "httpMethod": "POST",
         "type": "CMD"
       },
-      "topic/digitalContentAdd": {
-        "realization": "api/controllers/TopicController.digitalContentAdd",
-        "httpMethod": "POST",
-        "type": "CMD"
-      },
-      "topic/digitalContentRemove": {
-        "realization": "api/controllers/TopicController.digitalContentRemove",
-        "httpMethod": "POST",
-        "type": "CMD"
-      },
-      "sys/uuAppWorkspace/load": {
-        "realization": "api/controllers/SubjectManController.load",
+      "studyProgramme/listSubjectByStudyProgrammeId": {
+        "realization": "api/controllers/StudyProgrammeController.listSubjectByStudyProgrammeId",
         "httpMethod": "GET",
         "type": "CMD"
       }

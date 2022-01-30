@@ -65,11 +65,36 @@ const DigitalContentCreateModal = createVisualComponentWithRef({
           value=""
           required
         >
-          <UU5.Forms.Select.Option value="video" content={<UU5.Bricks.Lsi lsi={Lsi.form.types.video} />} />
-          <UU5.Forms.Select.Option value="youtube" content={<UU5.Bricks.Lsi lsi={Lsi.form.types.youtube} />} />
-          <UU5.Forms.Select.Option value="link" content={<UU5.Bricks.Lsi lsi={Lsi.form.types.link} />} />
-          <UU5.Forms.Select.Option value="uuCourse" content={<UU5.Bricks.Lsi lsi={Lsi.form.types.uuCourse} />} />
-          <UU5.Forms.Select.Option value="uuBook" content={<UU5.Bricks.Lsi lsi={Lsi.form.types.uuBook} />} />
+          <UU5.Forms.Select.Option value="video" content={
+            <UU5.Bricks.Row>
+              <UU5.Bricks.Column colWidth="xs-12 s-3" ><UU5.Bricks.Image width={32} src="../assets/icons/video.png" /></UU5.Bricks.Column>
+              <UU5.Bricks.Column colWidth="xs-12 s-3" ><UU5.Bricks.Lsi lsi={Lsi.form.types.video} /></UU5.Bricks.Column>
+            </UU5.Bricks.Row>
+          } />
+          <UU5.Forms.Select.Option value="youtube" content={
+            <UU5.Bricks.Row>
+              <UU5.Bricks.Column colWidth="xs-12 s-3" ><UU5.Bricks.Image width={32} src="../assets/icons/youtube.png" /></UU5.Bricks.Column>
+              <UU5.Bricks.Column colWidth="xs-12 s-3" ><UU5.Bricks.Lsi lsi={Lsi.form.types.youtube} /></UU5.Bricks.Column>
+            </UU5.Bricks.Row>
+          } />
+          <UU5.Forms.Select.Option value="link" content={
+            <UU5.Bricks.Row>
+              <UU5.Bricks.Column colWidth="xs-12 s-3" ><UU5.Bricks.Image width={32} src="../assets/icons/link.png" /></UU5.Bricks.Column>
+              <UU5.Bricks.Column colWidth="xs-12 s-3" ><UU5.Bricks.Lsi lsi={Lsi.form.types.link} /></UU5.Bricks.Column>
+            </UU5.Bricks.Row>
+          } />
+          <UU5.Forms.Select.Option value="uuCourse" content={
+            <UU5.Bricks.Row>
+              <UU5.Bricks.Column colWidth="xs-12 s-3" ><UU5.Bricks.Image width={32} src="../assets/icons/course.png" /></UU5.Bricks.Column>
+              <UU5.Bricks.Column colWidth="xs-12 s-3" ><UU5.Bricks.Lsi lsi={Lsi.form.types.uuCourse} /></UU5.Bricks.Column>
+            </UU5.Bricks.Row>
+          } />
+          <UU5.Forms.Select.Option value="uuBook" content={
+            <UU5.Bricks.Row>
+              <UU5.Bricks.Column colWidth="xs-12 s-3" ><UU5.Bricks.Image width={32} src="../assets/icons/book.png" /></UU5.Bricks.Column>
+              <UU5.Bricks.Column colWidth="xs-12 s-3" ><UU5.Bricks.Lsi lsi={Lsi.form.types.uuBook} /></UU5.Bricks.Column>
+            </UU5.Bricks.Row>
+          } />
 
         </UU5.Forms.Select>
 
